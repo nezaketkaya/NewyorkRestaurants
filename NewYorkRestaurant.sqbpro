@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/ali/Desktop/New York Restaurant/NewYorkRestaurant.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="125"/><column_width id="3" width="990"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,6:mainnomnom"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="nomnom" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="224"/><column index="2" value="131"/><column index="3" value="114"/><column index="4" value="67"/><column index="5" value="52"/><column index="6" value="64"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="BasicAnalysis">
+-- What are the distinct neighborhoods?
+SELECT DISTINCT neighborhood
+FROM nomnom;
+
+-- What are the distinct cuisine types?
+SELECT DISTINCT cuisine
+FROM nomnom;
+
+-- Suppose we would like some Chinese takeout.
+-- What are our options?
+SELECT *
+FROM nomnom
+WHERE cuisine = &quot;Chinese&quot;;
+
+-- Return all the restaurants with reviews of 4 and above.
+SELECT *
+FROM nomnom
+WHERE review &gt;= 4;
+
+-- Return all the restaurants that are Italian and $$$.
+SELECT *
+FROM nomnom
+WHERE cuisine = &quot;Italian&quot; AND price = &quot;$$$&quot;;
+
+-- Your coworker Trey can’t remember the exact name of a restaurant he went to but he knows it contains the word ‘meatball’ in it.
+-- Can you find it for him using a query?
+SELECT *
+FROM nomnom
+WHERE name LIKE &quot;%meatball%&quot;;
+
+-- Let’s order delivery to the house!
+-- Find all the close by spots in Midtown, Downtown or Chinatown.
+SELECT * 
+FROM nomnom
+WHERE neighborhood = &quot;Midtown&quot; OR neighborhood = &quot;Downtown&quot; OR neighborhood = &quot;Chinatown&quot;;
+
+-- Find all the health grade pending restaurants (empty values).
+SELECT * 
+FROM nomnom
+WHERE health IS NULL;
+
+-- Create a Top 10 Restaurants Ranking based on reviews.
+SELECT * 
+FROM nomnom
+ORDER BY review DESC
+LIMIT 10;
+
+/*
+Use a CASE statement to change the rating system to:
+review &gt; 4.5 is Extraordinary
+review &gt; 4 is Excellent
+review &gt; 3 is Good
+review &gt; 2 is Fair
+Everything else is Poor 
+Don’t forget to rename the new column! */
+SELECT name,
+ CASE
+  WHEN review &gt; 4.5 THEN 'Extraordinary'
+  WHEN review &gt; 4 THEN 'Excellent'
+  WHEN review &gt; 3 THEN 'Good'
+  WHEN review &gt; 2 THEN 'Fair'
+  ELSE 'Poor'
+ END AS 'Review'
+FROM nomnom;
+
+
+
+</sql><current_tab id="0"/></tab_sql></sqlb_project>
